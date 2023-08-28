@@ -1,65 +1,74 @@
-/* Gioco dei dadi
-
+/* 
 Bonus
 Usiamo un input e un bottone per inserire la mail e poi mostriamo i risultati in pagina.
-
-Consigli del giorno:
-scriviamo sempre prima dei commenti in italiano per capire cosa vogliamo fare
-javascript non fa nulla da solo, dobbiamo dirgli noi cosa vogliamo fare
-si ma noi cosa vogliamo fare?
-torniamo a scrivere in italiano
-proviamo ad immaginare le operazioni che vogliamo far svolgere al nostro programma così come lo faremmo "a mano" */
+ */
 
 //////////////////////////////////////////////////////////
 
 // Generare un numero random da 1 a 6, sia per il giocatore sia per il computer. 
 // (Fare due cost, una per il player e un per il pc, con all' interno la lista dei numeri).
+
+document.querySelector('.genera_game').addEventListener('click', ()=> {
  
-const numberPlayer = `${Math.floor(Math.random() * 6) + 1}`;
-const numberPc = `${Math.floor(Math.random() * 6) + 1}`;
+    const numberPlayer = Math.floor(Math.random() * 6) + 1;
+    const numberPc = Math.floor(Math.random() * 6) + 1;
+    let printWinner = document.querySelector('.risultatoGame')
+    // Stabilire il vincitore, in base a chi fa il punteggio più alto. 
+    //(Fare un if/else per comparare i risultati e stabilire il vincitore o pareggio).
 
-// Stabilire il vincitore, in base a chi fa il punteggio più alto. 
-//(Fare un if/else per comparare i risultati e stabilire il vincitore o pareggio).
+    if (numberPlayer > numberPc) {
+        console.log(`Ha vinto Claudio con il punteggio di ${numberPlayer} vs ${numberPc} 🏆`);
+        printWinner.innerHTML = `Ha vinto Claudio con il punteggio di ${numberPlayer} vs ${numberPc} 🏆`
 
-if (numberPlayer > numberPc) {
-    console.log(`Ha vinto Claudio 🏆`);
-} else if (numberPc > numberPlayer) {
-    console.log(`Ha vinto il PC 🏆`);
-} else {
-    console.log(`Nessuno dei due ha vinto, provate ancora`);
-}
+    } else if (numberPc > numberPlayer) {
+        console.log(`Ha vinto il PC con il punteggio di ${numberPc} vs ${numberPlayer} 🏆`);
+        printWinner.innerHTML = `Ha vinto il PC con il punteggio di ${numberPc} vs ${numberPlayer} 🏆`
 
+    } else {
+        console.log(`Nessuno dei due ha vinto, provate ancora`);
+        printWinner.innerHTML = `Nessuno dei due ha vinto, provate ancora`
+    }
+
+})
 
 ///////////////////////////////////////////
 // eMail
 
 // Crea lista nomi eMail.
+document.querySelector('.genera_email').addEventListener('click', ()=> {
 
-let usersEmail = ['claudio@gmail', 'marco@gmail', 'daniela@gmail', 'francesca@gmail'];
+    // Crea lista nomi eMail.
 
-// Chiedi all'utente la sua email.
+    let usersEmail = ['claudio@gmail', 'marco@gmail', 'daniela@gmail', 'francesca@gmail'];
 
-const askUserEmail = prompt(`Inserisci la tua eMail`)
-const answer = document.querySelector('.risposta')
+    // Chiedi all'utente la sua email.
 
-// Controlla che sia nella lista.
+    const askUserEmail = document.querySelector('.nomeEmail').value;
+    console.log(askUserEmail);
+    const answer = document.querySelector('.risposta')
 
- for (let index = 0; index < usersEmail.length; index++) {
-    let element = usersEmail[index];
-    //console.log(element);
+    // Controlla che sia nella lista.
+    
+    let inTheList = false;
 
-   // Stampa un messaggio appropriato sull’esito del controllo.
+    for (let index = 0; index < usersEmail.length; index++) {
+        
+    // Stampa un messaggio appropriato sull’esito del controllo.
 
-    if (askUserEmail && !element) {
-        console.log(`L'indirizzo eMail selezionato e' nella tua lista`);
-        answer.innerHTML = `L'indirizzo eMail selezionato e' nella tua lista`;
+        if (askUserEmail == usersEmail[index]) {
+            console.log(`L'indirizzo eMail selezionato e' nella tua lista`);
+            
+            answer.innerHTML = `L'indirizzo eMail selezionato e' nella tua lista`;
 
-    } else {
+            inTheList = true;
+            
+        } 
+
+    }
+
+    if (inTheList == false) {
         console.log(`L'indirizzo eMail selezionato non e' nella tua lista`);
         answer.innerHTML = `L'indirizzo eMail selezionato non e' nella tua lista`;
     }
-    
-} 
 
-
-
+})
